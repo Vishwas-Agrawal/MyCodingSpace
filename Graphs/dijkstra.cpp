@@ -75,14 +75,27 @@ ll d[MAXN];
 ll n;
 ll inf = 1e18;
 vpll adj[MAXN];
-void dijkstra(ll v)
+
+int main()
 {
+    fio;
+    cin >> n;
+    ll m;
+    cin >> m;
+    for (int i = 0; i < m; i++)
+    {
+        ll u, r, c;
+        cin >> u >> r >> c;
+        adj[u].pb({r, c});
+        adj[r].pb({u, c});
+    }
+
     fill(d, d + n + 1, inf);
     fill(mark, mark + n + 1, false);
-    d[v] = 0;
+    d[1] = 0;
     ll u;
     priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>> pq;
-    pq.push({d[v], v});
+    pq.push({d[1], 1});
     while (!pq.empty())
     {
         u = pq.top().second;
@@ -102,22 +115,7 @@ void dijkstra(ll v)
             }
         }
     }
-}
 
-int main()
-{
-    fio;
-    cin >> n;
-    ll m;
-    cin >> m;
-    for (int i = 0; i < m; i++)
-    {
-        ll u, r, c;
-        cin >> u >> r >> c;
-        adj[u].pb({r, c});
-        adj[r].pb({u, c});
-    }
-    dijkstra(1);
     for (int i = 1; i <= n; i++)
     {
         cout << d[i] << " ";

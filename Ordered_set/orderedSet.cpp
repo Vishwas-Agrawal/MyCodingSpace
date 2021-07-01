@@ -12,6 +12,7 @@ using namespace std;
 #include <ext/pb_ds/tree_policy.hpp>
 using namespace __gnu_pbds;
 #define ordered_set tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update>
+typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics_node_update> indexed_multiset;
 typedef long long int ll;
 #define vll vector<ll>
 #define pll pair<ll, ll>
@@ -77,16 +78,15 @@ long long mul(long long a, long long b)
 
 int main()
 {
-    ordered_set s;
+    indexed_multiset s;
     s.insert(5);
     s.insert(2);
+    s.insert(2);
     s.insert(1);
+    s.insert(4);
     cout << *(s.find_by_order(0)) << endl; //number at kth index
     cout << s.order_of_key(4) << endl;     //number of elements strickly less than the given numberS
-    if (s.find(2) != s.end())
-    {
-        s.erase(s.find(2));
-    }
+
     for (auto i : s)
     {
         cout << "element" << i << endl;
