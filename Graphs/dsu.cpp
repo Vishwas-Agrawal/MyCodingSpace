@@ -79,9 +79,7 @@ void make_set(ll v)
 ll find_set(ll v)
 {
     if (v == parent[v])
-    {
         return v;
-    }
     return parent[v] = find_set(parent[v]);
 }
 void union_sets(ll a, ll b)

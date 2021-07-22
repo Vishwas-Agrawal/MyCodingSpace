@@ -79,7 +79,6 @@ void addEdge(vll graph[], ll u, ll v)
 void dfs1(ll current)
 {
     visited[current] = true;
-
     for (auto i : graph1[current])
     {
         if (!visited[i])
@@ -113,7 +112,7 @@ int main()
         ll l, r;
         cin >> l >> r;
         addEdge(graph1, l, r);
-        addEdge(graph2, r, l)
+        addEdge(graph2, r, l);
     }
     for (int i = 1; i < n; i++)
     {
@@ -122,7 +121,7 @@ int main()
             dfs1(i);
         }
     }
-    visited.assgin(200005, false);
+    visited.assign(200005, false);
     while (!ss.empty())
     {
         vll v;
@@ -130,7 +129,7 @@ int main()
         ss.pop();
         if (!visited[x])
         {
-            dfs2(i, v);
+            dfs2(x, v);
         }
         //vector v contains the strongly connected components
     }

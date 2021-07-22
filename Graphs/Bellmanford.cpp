@@ -15,7 +15,6 @@ typedef long long int ll;
 #define fi first
 #define se second
 #define pb push_back
-#define pf push_front
 #define mp make_pair
 #define yes cout << "YES" << endl;
 #define no cout << "NO" << endl;
@@ -70,42 +69,37 @@ long long mul(long long a, long long b)
 {
     return mod(mod(a) * mod(b));
 }
-ll decbin(string s)
-{
-    return stoll(s, 0, 2);
-}
-//mask turn on condition is (i&(1<<j))!=0 not (i&(1<<j))==1
-//bitwise operator precedence is less than != and ==
-// a%M(a%=M) is not a syntax error
-//count(all(v),3) counts the number of 3 in vector
-//lower_bound if x not present points to next greater element
-//upper_bound return first element in the range which has value greater than given value
-
-/*if you want to find the next occurences of the numbers in the array from index i then iterate the array in
-reverse order then keep track of the pos[a[i]]*/
-vll prefix_function(string s)
-{
-    ll n = (ll)s.length();
-    vll pi(n);
-    for (ll i = 1; i < n; i++)
-    {
-        ll j = pi[i - 1];
-        while (j > 0 && s[i] != s[j])
-            j = pi[j - 1];
-        if (s[i] == s[j])
-            j++;
-        pi[i] = j;
-    }
-    return pi;
-}
+const int MAXN = 1e6;
+ll d[MAXN];
+ll n, m, inf = 1e9, src, u, v, wt;
+vector<pair<pll, ll>> edges;
 int main()
 {
     fio;
-#ifndef ONLINE_JUDGE
-    freopen("input.txt", "r", stdin);
-    freopen("output.txt", "w", stdout);
-    freopen("Error.txt", "w", stderr);
-#endif
-
+    cin >> n >> m >> src;
+    for (int i = 0; i < m; i++)
+    {
+        cin >> u >> v >> wt;
+        edges.pb({{u, v}, wt});
+    }
+    for (int i = 0; i <= n; i++)
+        d[i] = inf;
+    d[src] = 0;
+    for (int i = 0; i < n - 1; i++)
+        for (int j = 0; j < m; j++)
+            if (d[edges[j].fi.fi] < inf)
+                d[edges[j].fi.se] = min(d[edges[j].fi.se], d[edges[j].fi.fi] + edges[j].se);
+    bool neg = false;
+    for (int j = 0; j < m; j++)
+        if (d[edges[j].fi.fi] + edges[j].se < d[edges[j].fi.se])
+            neg = true;
+    if (neg)
+        cout << "Negative Cycle Detected" << endl;
+    else
+    {
+        for (int i = 1; i <= n; i++)
+            cout << d[i] << " ";
+        cout << endl;
+    }
     return 0;
 }
